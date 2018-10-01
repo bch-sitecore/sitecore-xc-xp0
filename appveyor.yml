@@ -8,4 +8,4 @@ install:
       docker version
 
 build_script:
-  -ps: .\Build.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION
+  - ps: .\Build.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION
