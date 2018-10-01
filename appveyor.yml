@@ -1,6 +1,14 @@
 version: 9.0.2.{build}
 image: Visual Studio 2017
 
+environment:
+  docker_repository:
+    secure: O31RyxMbW2kjUIZnmwAlI1VZ2ARwMDjWeolUMCT+nTM=
+  docker_username:
+    secure: b2cKuN3mLck9vm84qOfC9g==
+  docker_password:
+    secure: zK3mBk7glxDZuCKBHGINOQ1BRWJiaOUA+3bEWjT1Bk/QPfz/jWVQF6IS/n5KuoVe
+
 install:
   - ps: |
       $version = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").BuildLabEx
@@ -8,4 +16,4 @@ install:
       docker version
 
 build_script:
-  - ps: .\Build.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION
+  - ps: .\Build.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION -Repository $env:docker_repository
