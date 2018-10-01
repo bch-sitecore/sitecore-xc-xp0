@@ -19,4 +19,11 @@ If ($Repository) {
   $ImageName = "${Repository}/${ImageName}"
 }
 
+$buildArgs = @(
+  "build",
+  "-t", "${ImageName}:${BuildVersion}",
+  "-t", "${ImageName}:latest",
+  "."
+)
+& docker $buildArgs
 Write-Output "Build ${ImageName}:${BuildVersion} complete."
