@@ -19,6 +19,9 @@ If ($Repository) {
   $ImageName = "${Repository}/${ImageName}"
 }
 
+Write-Output "Buiding config/module sources"
+.\src\Build.ps1
+
 $buildArgs = @(
   "build",
   "-t", "${ImageName}:${BuildVersion}",

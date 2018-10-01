@@ -1,0 +1,13 @@
+{
+  "Parameters": {
+
+  },
+  "Variables": {
+
+  },
+  "Tasks": {
+    "SayHelloToWorld": {
+      "Type": "Greeting"
+    }
+  }
+}
