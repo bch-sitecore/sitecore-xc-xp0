@@ -17,3 +17,9 @@ install:
 
 build_script:
   - ps: .\Build.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION -Repository $env:docker_repository
+
+before_deploy:
+  - ps: $env:docker_password | docker login --username $env:docker_username --password-stdin $env:docker_repository
+
+deploy_script:
+  - ps: .\Deploy.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION -Repository $env:docker_repository
