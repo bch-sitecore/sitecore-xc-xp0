@@ -2,29 +2,7 @@
 Param()
 $ErrorActionPreference = "Stop"
 
-Function ConvertTo-PrettyJson {
-  [CmdletBinding()]
-  Param(
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [String] $json
-  )
-  Process {
-    $indent = 0;
-    ($json -Split '\n' |
-      % {
-        if ($_ -match '[\}\]],?\s*$') {
-          # This line contains  ] or }, decrement the indentation level
-          $indent--
-        }
-        $line = (' ' * $indent * 2) + $_.TrimStart().Replace(':  ', ': ')
-        if ($_ -match '[\{\[]\s*$') {
-          # This line contains [ or {, increment the indentation level
-          $indent++
-        }
-        $line
-    }) -Join "`n"
-  }
-}
+. .\src\SIF.Module\Helper\ConvertTo-PrettyJson.ps1
 
 $destPath = [System.IO.Path]::GetFullPath( (Join-Path $PSScriptRoot -ChildPath "..\dist") )
 $configSourcePath = Join-Path $PSScriptRoot -ChildPath "SIF.Config"
@@ -74,7 +52,7 @@ Get-ChildItem $configSourcePath -Include "*.json" -Recurse | ForEach-Object {
   }
   $content.Modules += ".\{0}" -f (Split-Path $moduleDestFile -Leaf)
 
-  $content | ConvertTo-Json | ConvertTo-PrettyJson | Set-Content (Join-Path $destPath -ChildPath $_.Name)
+  $content | ConvertTo-Json -Depth 50 | ConvertTo-PrettyJson | Set-Content (Join-Path $destPath -ChildPath $_.Name)
 
   #Copy-Item $_.FullName -Destination $destPath
 }
