@@ -15,6 +15,6 @@ Param(
 )
 $ErrorActionPreference = "Stop"
 
-$pushArgs = @("push", "${Repository}/${ImageName}:${Version}")
+$pushArgs = @("push", "${Repository}/${ImageName}:${BuildVersion}")
 & docker $pushArgs
 Write-Output "Push ${Repository}/${ImageName}:${BuildVersion} complete."
