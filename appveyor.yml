@@ -14,7 +14,7 @@ install:
       $version = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").BuildLabEx
       Write-Host "Server version ${version}"
       docker version
-      Install-Module 'PSScriptAnalyzer', 'Pester' -Force
+      Install-Module 'PSScriptAnalyzer', 'Pester' -SkipPublisherCheck -Force
 
 build_script:
   - ps: .\Build.ps1 -BuildVersion $env:APPVEYOR_BUILD_VERSION -Repository $env:docker_repository
